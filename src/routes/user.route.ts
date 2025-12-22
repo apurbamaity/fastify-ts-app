@@ -1,11 +1,17 @@
-import { FastifyInstance } from "fastify";
+import type { FastifyRequest, FastifyInstance, FastifyReply } from "fastify";
 
+
+
+interface LoginBody {
+    username: string;
+    password: string;
+}
 export async function userRoutes(app: FastifyInstance) {
     app.get("/users", async () => {
         return [{ id: 1, name: "Apurba" }];
     });
 
-    app.post(
+    app.post<{ Body: LoginBody }>(
         "/login",
         {
             schema: {
@@ -37,7 +43,7 @@ export async function userRoutes(app: FastifyInstance) {
                     type: "object",
                     required: ["id"],
                     properties: {
-                        id: { type: "number", minLength: 1 },
+                        id: { type: "number" },
                         name: { type: "string", minLength: 0 },
                     },
                 },
@@ -45,6 +51,7 @@ export async function userRoutes(app: FastifyInstance) {
         },
         async (req, reply) => {
             const { id, name } = req.params;
+            console.log("user logged in==>", req.user)
             return { id, name };
         }
     );
@@ -55,4 +62,6 @@ export async function userRoutes(app: FastifyInstance) {
             user: req.user, // ✅ fully typed
         };
     });
+
+
 }

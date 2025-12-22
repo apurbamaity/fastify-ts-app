@@ -18,7 +18,7 @@
 //     );
 // }
 
-import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
 export async function authMiddleware(app: FastifyInstance) {
     // 1️⃣ Declare decorator (startup-time)

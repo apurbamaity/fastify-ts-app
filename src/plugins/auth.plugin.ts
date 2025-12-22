@@ -1,5 +1,5 @@
 import fp from "fastify-plugin";
-import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
 async function authPlugin(app: FastifyInstance) {
     // 🔹 1. Declare request decorator
@@ -9,7 +9,7 @@ async function authPlugin(app: FastifyInstance) {
     app.decorate(
         "verifyAuth",
         async (req: FastifyRequest, reply: FastifyReply) => {
-            const authHeader = req.headers.authorization;
+            const authHeader = req.headers['authorization'];
             console.log("here it comes");
 
             if (!authHeader) {
